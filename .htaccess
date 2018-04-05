@@ -1,0 +1,18 @@
+#php_value error_reporting 7
+php_value error_reporting 30719 
+php_flag display_errors on
+
+<IfModule mod_rewrite.c>
+	#AllowOverride All
+	RewriteEngine on
+	
+	RewriteCond %{REQUEST_URI} "/Public/" [OR]
+	RewriteCond %{REQUEST_URI} "/Public/"
+	RewriteRule (.*) $1 [L]
+	
+	RewriteRule s3/(.*) s3.php?path=$1 [L]
+	RewriteRule ^download/ index.php [L]
+	RewriteRule !\.()$ index.php
+	RewriteRule sitemap.xml sitemap.xml
+
+</IfModule>
