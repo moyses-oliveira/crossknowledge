@@ -4,15 +4,14 @@ require 'CrossKnowledge/Autoloader.php';
 
 use CrossKnowledge\Data\MySQL\Config as MySQLConfig;
 
-define('BASE_URL', '/');
+define('BASE_URL', str_replace('index.php', '', $_SERVER['PHP_SELF']));
 define('ROOT_DIRECTORY', __DIR__);
 define('VIEW_DIRECTORY', implode(DIRECTORY_SEPARATOR, [__DIR__, 'CrossKnowledge', 'App', 'View']));
 define('SQL_DIRECTORY', implode(DIRECTORY_SEPARATOR, [__DIR__, 'CrossKnowledge', 'Data', 'SQL']));
 
 
 (function() {
-    
-    $uri = trim(strtolower($_SERVER['REQUEST_URI']), '/');
+    $uri = trim(strtolower(substr($_SERVER['REQUEST_URI'], strlen(BASE_URL))), '/');
     $parse = parse_url($uri);
     $parts = explode('/', $parse['path']);
     $GLOBALS['uriParts'] = $parts;
